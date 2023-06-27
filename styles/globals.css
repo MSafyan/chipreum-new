@@ -1,0 +1,141 @@
+/* Font family */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap");
+
+/* tailwind inport */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Variables */
+:root {
+  /* color  */
+  --color-primary: #448aff;
+  --color-primary-2: #0b6725;
+  --color-primary-3: #e34234;
+  --color-primary-4: #8e59ff;
+  --color-primary-dark: #3bdc68;
+  /* --color-secondary: #bfc6d7; */
+
+  --color-gray-1: #fcfcfc;
+  --color-gray-2: #f4f4f4;
+  --color-gray-3: #efefef;
+  --color-gray-4: #6f767e;
+  --color-gray-5: #33383f;
+  --color-gray-6: #272b30;
+  --color-gray-7: #1a1d1f;
+  --color-gray-8: #111315;
+  --color-dark: #1a1d1f;
+}
+
+/**================================================== *
+ * ==========  Base  ========== *
+ * ================================================== */
+@layer base {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: "Inter";
+
+    /* text Default */
+    @apply text-[var(--color-gray-6)] dark:text-[var(--color-gray-2)] bg-[#F7F9FC] dark:!bg-[var(--color-gray-8)] min-h-screen;
+
+    scroll-behavior: smooth !important;
+    /* overflow-x: hidden; */
+  }
+
+  body {
+    @apply text-sm sm:text-lg leading-[150%] font-normal overflow-x-hidden;
+  }
+
+  [class^="material-symbols-"] {
+    color: var(--color-gray-4);
+    line-height: 1;
+    font-size: 24px;
+  }
+}
+/* =======  End of Base  ======= */
+
+/**================================================== *
+ * ==========  components block  ========== *
+ * ================================================== */
+@layer components {
+  .active {
+    @apply bg-[var(--color-primary)] text-[#f8fafc];
+  }
+
+  .side-bar-active {
+    @apply rounded-lg bg-[#F4F4F4] dark:bg-[var(--color-gray-5)] shadow-[0px_1px_1px_rgba(0,0,0,0.25)];
+  }
+
+  .side-bar-active span {
+    @apply !text-[var(--color-gray-5)] dark:!text-white;
+  }
+}
+/* =======  End of components block  ======= */
+
+/**================================================== *
+ * ==========  apex charts  ========== *
+ * ================================================== */
+.apexcharts-tooltip {
+  width: 224px !important;
+  border-radius: 2px !important;
+  border: 1px solid var(--color-primary-4) !important;
+  background: rgba(142, 89, 255, 0.21) !important;
+  opacity: 1;
+  padding: 12px;
+}
+
+.apexcharts-tooltip-title {
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 14px !important;
+  line-height: 150% !important;
+  color: #2e293e !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+.apexcharts-tooltip-series-group,
+.apexcharts-tooltip-text {
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 32px !important;
+  line-height: 130% !important;
+  font-weight: 600 !important;
+  color: #2e293e !important;
+}
+
+.apexcharts-tooltip-y-group,
+.apexcharts-tooltip-text-y-value {
+  padding: 5px 0 0 0 !important;
+}
+
+.dark .apexcharts-tooltip-title {
+  color: #fff !important;
+}
+
+.dark .apexcharts-tooltip-series-group,
+.dark .apexcharts-tooltip-text {
+  color: #fff !important;
+}
+
+.dark .apexcharts-tooltip {
+  width: 224px !important;
+  border-radius: 2px !important;
+  border: 1px solid var(--color-primary) !important;
+  background: rgba(42, 133, 255, 0.2) !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* =======  End of apex charts  ======= */
