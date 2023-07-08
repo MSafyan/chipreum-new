@@ -1,0 +1,29 @@
+.box_Container {
+  background-image: url("/images/auth/bg-login.png");
+}
+
+.box_Container::after {
+  content: "";
+  background-image: url("/images/auth/bg5.png");
+  bottom: 0;
+  left: auto;
+  top: auto;
+  right: 0;
+  position: absolute;
+  width: 240px;
+  height: 970px;
+  z-index: -1;
+}
+
+.box_Container::before {
+  content: "";
+  background: rgba(100, 151, 255, 0.3);
+  filter: blur(200px);
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: block;
+  width: 770px;
+  height: 617px;
+  z-index: -1;
+}

@@ -14,6 +14,22 @@ module.exports = {
       fontFamily: {
         custom: ["Inter", "sans-serif"],
       },
+      spacing: {
+        "1vh": "1vh",
+        "1vw": "1vw",
+        "2vh": "2vh",
+        "2vw": "2vw",
+        "3vh": "3vh",
+        "3vw": "3vw",
+        // Add as many as you need...
+      },
+
+      width: {
+        "7/10": "70%",
+      },
+      colors: {
+        e4d9d9: "#e4d9d9",
+      },
     },
   },
   plugins: [],
