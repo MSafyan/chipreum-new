@@ -2,13 +2,9 @@ import FeatherIcon from "feather-icons-react";
 import Link from "next/link";
 import Api from "../../../../api/api";
 
-function PostSettings({ setLoader, setUserPosts, postId }) {
+function PostSettings({ postId }) {
   const deletePost = async () => {
     const res = await Api.deletePost(postId);
-    if (res.status === 200) {
-      setLoader(true);
-      setUserPosts([]);
-    }
   };
 
   return (

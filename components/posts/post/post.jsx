@@ -12,15 +12,15 @@ import ReactionStats from "./components/reactionstats";
 import TitleBox from "./components/titlebox";
 
 function Post({
+  post,
   isShare,
   setLoader,
-  setUserPosts,
-  post,
-  isAuth,
-  postId,
-  fullname,
   avatar,
+  fullname,
+  postId,
   options,
+  setUserPosts,
+  isAuth,
 }) {
   const [commentsShow, setCommentsShow] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
@@ -44,9 +44,9 @@ function Post({
       {isShare && (
         <div className="post-shared-title">
           <p>
-            <Link href={`/profile/${post.owner._id}`}>
+            <Link href={`/profile/${post?.owner ? post.owner?._id : null}`}>
               {profileMe._id === post.owner._id ? "You" : post.owner.fullname}
-            </Link>{" "}
+            </Link>
             shared this post
           </p>
         </div>

@@ -1,18 +1,37 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, ChangeEvent, FC } from "react";
 import ProfileCard from "../cards/ProfileCard";
 import CollectiblesTab from "./CollectiblesTab";
 import FollowersTab from "./FollowersTab";
 import FollowingTab from "./FollowingTab";
 import OnSaleTabs from "./OnSaleTabs";
 import banner from "/public/images/user/banner.png";
+import { updateCoverAction } from "@/store/actions/userAction";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
+import Link from "next/link";
 
-const ProfileMain = () => {
+const ProfileMain: FC = () => {
   const router = useRouter();
+  const userState = useSelector((state: RootState) => ({
+    user: state.users.user,
+  }));
 
   const { view } = router.query;
+  const editImageHandle = (e: ChangeEvent<HTMLInputElement>) => {
+    let file = e.target.files ? e.target.files[0] : new File([], "empty");
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
 
+    coverImageHandle(file);
+  };
+
+  const coverImageHandle = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    updateCoverAction(formData);
+  };
   useEffect(() => {
     router.push("?view=on-sale");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,30 +39,44 @@ const ProfileMain = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full relative">
-        <Image src={banner} alt="banner" className="w-full" />
+      <div className="w-full relative h-[300px]">
+        <Image
+          src={userState.user.user?.coverUrl || banner.src}
+          alt="banner"
+          fill
+          className="w-full"
+        />
 
         <div className="flex flex-row sm:flex-col lg:flex-row items-center gap-2 lg:gap-5 absolute right-5 xl:right-[160px] bottom-[45%] sm:bottom-5 lg:bottom-[60px]">
-          <button
-            type={"button"}
-            className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg"
+          <label
+            htmlFor="edit-cover"
+            className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg cursor-pointer"
           >
             Edit cover photo
-          </button>
-          <button
-            type={"button"}
-            className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg"
-          >
-            Edit Profiel
-          </button>
+          </label>
+          <input
+            type="file"
+            id="edit-cover"
+            name="edit-cover"
+            accept="image/png,image/jpg,image/jpeg,image/gif"
+            style={{ display: "none" }}
+            onChange={editImageHandle}
+          />
+          <Link href="/edit-profile">
+            <button
+              type={"button"}
+              className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg"
+            >
+              Edit Profile
+            </button>
+          </Link>
         </div>
       </div>
 
       <div className="flex flex-col min-[600px]:flex-row">
-        {/* Profile Card */}
         <ProfileCard />
 
-        <div className="w-full min-[600px]:w-6/12 lg:w-7/12 2xl:w-9/12 pl-2 md:pl-0 pr-2 md:pr-3 min-[1235px]:px-0">
+        {/* <div className="w-full min-[600px]:w-6/12 lg:w-7/12 2xl:w-9/12 pl-2 md:pl-0 pr-2 md:pr-3 min-[1235px]:px-0">
           <div className="overflow-x-auto">
             <div className="inline-flex items-center border px-2 py-1 rounded-lg mt-6">
               <button
@@ -107,7 +140,7 @@ const ProfileMain = () => {
           {view === "collectibles" ? <CollectiblesTab /> : ""}
           {view === "following" ? <FollowingTab /> : ""}
           {view === "followers" ? <FollowersTab /> : ""}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,22 +1,22 @@
 // import FeatherIcon from 'feather-icons-react';
 // import { useState } from 'react';
-import LanguageSelector from './languageSelector';
+import LanguageSelector from "./languageSelector";
 
 function Detail({ description, options }) {
-	// const [fill, setFill] = useState(false);
+  // const [fill, setFill] = useState(false);
 
-	return (
-		<div className='detail-box'>
-			<p>{description}</p>
+  return (
+    <div className="relative pt-0 pb-[25px] px-[35px]">
+      <p>{description}</p>
 
-			<LanguageSelector q={description} options={options} />
-			{/* <div onClick={() => setFill(!fill)} className={`bookmark ${fill&&'active'} favourite-btn`}>
+      <LanguageSelector q={description} options={options} />
+      {/* <div onClick={() => setFill(!fill)} className={`bookmark ${fill&&'active'} favourite-btn`}>
                 <FeatherIcon
                     icon="bookmark" size={14}
                 />
             </div> */}
-		</div>
-	);
+    </div>
+  );
 }
 
 export default Detail;

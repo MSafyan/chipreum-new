@@ -1,12 +1,6 @@
 import styles from "./register.module.css";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import ClipLoader from "react-spinners/PropagateLoader";
-import Api from "../../api/api";
-import bgSignup from "images/auth/bg-signup.png";
-import bg6 from "/images/auth/bg6.png";
-import bg7 from "/images/auth/bg7.png";
 import Link from "next/link";
 import {
   InputEmail,
@@ -14,40 +8,35 @@ import {
   InputPassword,
 } from "@/components/authpage/auth";
 import PreLoader from "@/components/preloader/Preloader";
+import * as Yup from "yup";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
+import { signUp } from "@/store/actions/userAction";
+import { FormikProvider, useFormik } from "formik";
 
-function Login() {
-  const router = useRouter();
-  const [formData, setSignupForm] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-  });
-
+function Register() {
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const storeState = (state: RootState) => ({
+    loading: state.users.user.loading,
+  });
+  const { loading } = useSelector(storeState);
 
   const eyeHandle = () => {
     setVisible(!visible);
   };
 
-  const submitHandle = async (e: any) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const res = await Api.userRegister(formData);
-    if (res.status === 201) {
-      setSignupForm({ fullname: "", email: "", password: "" });
-      setLoading(false);
-      router.push("/login");
-    } else {
-      setLoading(false);
-      setSignupForm({ fullname: "", email: "", password: "" });
-    }
-  };
-
-  const setInputHandle = (e: any) => {
-    setSignupForm((obj) => ({ ...obj, [e.target.name]: e.target.value }));
-  };
+  const formik = useFormik({
+    initialValues: {
+      fullname: "",
+      email: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      await signUp(values);
+    },
+  });
 
   return (
     <>
@@ -64,27 +53,27 @@ function Login() {
               <div className="font-semibold my-1vw text-6xl leading-[72px] text-white">
                 Create Account
               </div>
-              <form
-                onSubmit={submitHandle}
-                className="w-7/10 flex flex-col justify-center items-center"
-              >
-                {InputName({ setInputHandle, formData })}
-                {InputEmail({ setInputHandle, formData })}
-                {InputPassword({
-                  setInputHandle,
-                  formData,
-                  visible,
-                  eyeHandle,
-                })}
-
-                <button
-                  className="button btn-form_ px-0 w-full max-w-xs h-14 outline-none self-center text-decoration-none cursor-pointer bg-gradient-to-b from-red-500 to-purple-700 rounded-full text-white font-semibold text-lg border border-blue-500 capitalize"
-                  type="submit"
+              <FormikProvider value={formik}>
+                <form
+                  onSubmit={formik.handleSubmit}
+                  className="w-7/10 flex flex-col justify-center items-center"
                 >
-                  {loading ? <span></span> : "Create Account"}
-                  <ClipLoader color={"#ffff"} loading={loading} size={10} />
-                </button>
-              </form>
+                  <InputName />
+                  <InputEmail />
+                  <InputPassword
+                    visible={visible}
+                    eyeHandle={eyeHandle}
+                    name="password"
+                  />
+                  <button
+                    className="button btn-form_ px-0 w-full max-w-xs h-14 outline-none self-center text-decoration-none cursor-pointer bg-gradient-to-b from-red-500 to-purple-700 rounded-full text-white font-semibold text-lg border border-blue-500 capitalize"
+                    type="submit"
+                  >
+                    {loading ? <span></span> : "Create Account"}
+                    <ClipLoader color={"#ffff"} loading={loading} size={10} />
+                  </button>
+                </form>
+              </FormikProvider>
               <div className="already  flex w-full my-6 max-w-xs justify-between items-center font-semibold text-sm leading-6 text-gray-400 max-w-[240px]">
                 <span>Already have an account?</span>
                 <Link href="/login">Log in</Link>
@@ -97,4 +86,12 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
+
+const validationSchema = Yup.object({
+  fullname: Yup.string().required("Full name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});

@@ -8,12 +8,22 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import logo from "/public/images/logo.png";
 import logo_icon from "/public/images/logo_icon.png";
+import { getProfileAction } from "@/store/actions/userAction";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { dootLink } from "@/config";
 
 const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
   const [enabled, setEnabled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [show, setShow] = useState(true);
   const [sideBarShow, setSideBarShow] = useState(false);
+  var blocked = true;
+
+  const { user, unseenNotification } = useSelector((state: RootState) => ({
+    user: state.users.user,
+    unseenNotification: state.notification.notifications.unSeen,
+  }));
 
   // responsive check
   const responsive = useMediaQuery({
@@ -21,7 +31,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
   });
 
   // get router path
-  const { route } = useRouter();
+  const router = useRouter();
+  const { route } = router;
 
   const onMouseOverHandler = () => {
     if (sideBarShow) {
@@ -46,7 +57,15 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
     setTheme(theme === "dark" || theme === "system" ? "light" : "dark");
   };
 
-  useEffect(() => setEnabled(true), []);
+  useEffect(() => {
+    setEnabled(true);
+
+    if (user.jwt) {
+      getProfileAction();
+    } else {
+      router.push("/login");
+    }
+  }, []);
 
   if (!enabled) return null;
 
@@ -105,14 +124,100 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     </span>
                   </Link>
                 </li>
+
                 <li
                   className="pb-3"
                   onMouseOver={onMouseOverHandler}
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/farm"
+                    href={`${dootLink}/${user.jwt}`}
+                    className={`flex items-center gap-2 p-3  ${
+                      showText ? "" : "justify-center"
+                    }`}
+                    onClick={() => setOpenSidBar(false)}
+                  >
+                    <span className="material-symbols-outlined">message</span>
+                    <span
+                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                    >
+                      {showText ? "Messages" : ""}
+                    </span>
+                  </Link>
+                </li>
+                <li
+                  className="pb-3"
+                  onMouseOver={onMouseOverHandler}
+                  onMouseLeave={onMouseLeaveHandler}
+                >
+                  <Link
+                    href="/notifications"
+                    className="flex items-center gap-2 p-3 text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]"
+                    onClick={() => setOpenSidBar(false)}
+                  >
+                    <span className="material-symbols-outlined">
+                      notifications
+                    </span>
+                    Notifications
+                    {unseenNotification > 0 && (
+                      <span className="inline-flex items-center justify-center px-2 py-1 ml-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                        {unseenNotification}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+
+                <li
+                  className="pb-3"
+                  onMouseOver={onMouseOverHandler}
+                  onMouseLeave={onMouseLeaveHandler}
+                >
+                  <Link
+                    href={"/profile"}
                     className={`flex items-center gap-2 p-3 ${
+                      showText ? "" : "justify-center"
+                    } ${route === "/profile" ? "side-bar-active" : ""}`}
+                    onClick={() => setOpenSidBar(false)}
+                  >
+                    <span className="material-symbols-outlined">
+                      account_circle
+                    </span>
+                    <span
+                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                    >
+                      {showText ? "Profile" : ""}
+                    </span>
+                  </Link>
+                </li>
+                <li
+                  className="pb-3"
+                  onMouseOver={onMouseOverHandler}
+                  onMouseLeave={onMouseLeaveHandler}
+                >
+                  <Link
+                    href={"/login"}
+                    className={`flex items-center gap-2 p-3 ${
+                      showText ? "" : "justify-center"
+                    } ${route === "/login" ? "side-bar-active" : ""}`}
+                    onClick={() => setOpenSidBar(false)}
+                  >
+                    <span className="material-symbols-outlined">logout</span>
+                    <span
+                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                    >
+                      {showText ? "Logout" : ""}
+                    </span>
+                  </Link>
+                </li>
+                <h4 className="my-2">Comming Soon</h4>
+                <li
+                  className="pb-3"
+                  onMouseOver={onMouseOverHandler}
+                  onMouseLeave={onMouseLeaveHandler}
+                >
+                  <Link
+                    href={blocked ? "#" : "/farm"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/farm" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -131,8 +236,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/swap"
-                    className={`flex items-center gap-2 p-3 ${
+                    href={blocked ? "#" : "/swap"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/swap" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -153,8 +258,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/liquidity"
-                    className={`flex items-center gap-2 p-3 ${
+                    href={blocked ? "#" : "/liquidity"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/liquidity" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -175,8 +280,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/explore-nfts"
-                    className={`flex items-center gap-2 p-3 ${
+                    href={blocked ? "#" : "/explore-nfts"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/explore-nfts" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -195,8 +300,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/create-nft"
-                    className={`flex items-center gap-2 p-3 ${
+                    href={blocked ? "#" : "/create-nft"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/create-nft" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -217,8 +322,8 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/nft-details"
-                    className={`flex items-center gap-2 p-3 ${
+                    href={blocked ? "#" : "/nft-details"}
+                    className={`flex items-center gap-2 p-3 cursor-not-allowed ${
                       showText ? "" : "justify-center"
                     } ${route === "/nft-details" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
@@ -233,30 +338,9 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     </span>
                   </Link>
                 </li>
+
                 <li
-                  className="pb-3"
-                  onMouseOver={onMouseOverHandler}
-                  onMouseLeave={onMouseLeaveHandler}
-                >
-                  <Link
-                    href="/profile"
-                    className={`flex items-center gap-2 p-3 ${
-                      showText ? "" : "justify-center"
-                    } ${route === "/profile" ? "side-bar-active" : ""}`}
-                    onClick={() => setOpenSidBar(false)}
-                  >
-                    <span className="material-symbols-outlined">
-                      account_circle
-                    </span>
-                    <span
-                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
-                    >
-                      {showText ? "Profile" : ""}
-                    </span>
-                  </Link>
-                </li>
-                <li
-                  className={`flex flex-col cursor-pointer ${
+                  className={`flex flex-col cursor-not-allowed   ${
                     showText ? "justify-between" : "justify-center"
                   }`}
                   onMouseOver={onMouseOverHandler}
@@ -290,14 +374,14 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     </span>
                   </Link>
                   <ul
-                    className={`flex flex-col gap-4 ml-4 mt-4 overflow-hidden ${
+                    className={`flex flex-col gap-4 ml-4 cursor-not-allowed  mt-4 overflow-hidden ${
                       show ? "max-h-0" : "max-h-48"
                     } transition-[max-height] duration-200 ease-in`}
                   >
                     <li>
                       <Link
-                        href="/vote"
-                        className="flex items-center gap-4 text-[var(--color-gray-4)] font-semibold text-base leading-[130%] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-gray-4)] hover:translate-x-2 transition duration-200 ease-linear"
+                        href={blocked ? "#" : "/vote"}
+                        className="flex cursor-not-allowed  items-center gap-4 text-[var(--color-gray-4)] font-semibold text-base leading-[130%] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-gray-4)] hover:translate-x-2 transition duration-200 ease-linear"
                         onClick={() => setOpenSidBar(false)}
                       >
                         Explore
@@ -305,20 +389,11 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     </li>
                     <li>
                       <Link
-                        href="/vote-with-pools"
-                        className="flex items-center gap-4 text-[var(--color-gray-4)] font-semibold text-base leading-[130%] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-gray-4)] hover:translate-x-2 transition duration-200 ease-linear"
+                        href={blocked ? "#" : "/vovote-with-poolste"}
+                        className="flex cursor-not-allowed  items-center gap-4 text-[var(--color-gray-4)] font-semibold text-base leading-[130%] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-gray-4)] hover:translate-x-2 transition duration-200 ease-linear"
                         onClick={() => setOpenSidBar(false)}
                       >
                         Vote with pools
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/notifications"
-                        className="flex items-center gap-4 text-[var(--color-gray-4)] font-semibold text-base leading-[130%] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-gray-4)] hover:translate-x-2 transition duration-200 ease-linear"
-                        onClick={() => setOpenSidBar(false)}
-                      >
-                        Notifications
                       </Link>
                     </li>
                   </ul>
@@ -337,7 +412,7 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
               onChange={handleClick}
               className={`${
                 theme === "light" ? "border-[#1C1B1F]" : "border-[#fff]"
-              } relative inline-flex h-[20px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-[#1C1B1F] transition-colors duration-200 ease-in-out`}
+              } relative inline-flex h-[20px] w-[40px] shrink-0 rounded-full border-2 border-[#1C1B1F] transition-colors duration-200 ease-in-out`}
             >
               <span className="sr-only">Use Setting</span>
               <span

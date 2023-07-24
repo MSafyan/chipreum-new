@@ -5,7 +5,6 @@ import PostSettings from "./postsettings";
 function TitleBox({
   userId,
   setLoader,
-  setUserPosts,
   isAuth,
   postId,
   ownerImage,
@@ -13,14 +12,17 @@ function TitleBox({
   createdAt,
 }) {
   return (
-    <div className="post-title">
+    <div>
       <div className="profile">
-        <div className="media">
-          <Link href={`/profile/${userId}`} className="user-img">
+        <div className="flex items-center px-8 py-4">
+          <Link
+            href={`/profile/${userId}`}
+            className="w-[55px] h-[55px] relative mr-4 rounded-[100%]"
+          >
             <img
               crossorigin="anonymous"
               src={ownerImage}
-              className="img-fluid lazyload bg-img"
+              className=" w-full h-full object-cover rounded-[50px]"
               alt="user"
             />
           </Link>
@@ -34,13 +36,7 @@ function TitleBox({
           </div>
         </div>
       </div>
-      {isAuth && (
-        <PostSettings
-          postId={postId}
-          setLoader={setLoader}
-          setUserPosts={setUserPosts}
-        />
-      )}
+      {isAuth && <PostSettings postId={postId} setLoader={setLoader} />}
     </div>
   );
 }

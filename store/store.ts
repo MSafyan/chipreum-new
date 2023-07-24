@@ -18,15 +18,25 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { createWrapper, MakeStore } from "next-redux-wrapper";
 import userSlice from "./slices/userSlice";
+import landerSlice from "./slices/landerSlice";
+import notificationSlice from "./slices/notificationSlice";
+import languageSlice from "./slices/languageSlice";
+import postSlice from "./slices/postSlice";
+import storySlice from "./slices/StorySlice";
 
 const persistConfig = {
-  key: "fashionxotics1",
+  key: "chipream",
   version: 1,
   storage,
 };
 
 const rootReducer = combineReducers({
   users: userSlice,
+  lander: landerSlice,
+  notification: notificationSlice,
+  language: languageSlice,
+  post: postSlice,
+  story: storySlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

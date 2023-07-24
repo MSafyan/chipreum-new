@@ -7,7 +7,6 @@ export default class Api {
   static userLogin = async (data) => {
     try {
       const res = await axios.post(`/api/v1/user/login`, data);
-      debugger;
       setAuthHeader(res.data.token);
       return res;
     } catch (error) {

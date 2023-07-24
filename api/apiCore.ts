@@ -1,10 +1,9 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 import config from "../config";
 
 axios.defaults.baseURL = config.BASE_URL;
 
 const setAuthHeader = (token: any) => {
-  debugger;
   axios.defaults.headers.common["Authorization"] = "Bearer " + token;
   if (typeof window !== "undefined") {
     localStorage.setItem("token", token);

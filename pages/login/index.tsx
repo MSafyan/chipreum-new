@@ -1,49 +1,36 @@
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import ClipLoader from "react-spinners/PropagateLoader";
-import Api from "../../api/api";
-import bgLogin from "images/auth/bg-login.png";
-import bg4 from "/images/auth/bg4.png";
-import bg5 from "/images/auth/bg5.png";
 import Link from "next/link";
 import { InputEmail, InputPassword } from "@/components/authpage/auth";
 import PreLoader from "@/components/preloader/Preloader";
+import { signIn } from "@/store/actions/userAction";
+import { FormikProvider, useFormik } from "formik";
+import * as Yup from "yup";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 function Login() {
-  const router = useRouter();
-  const [formData, setLoginForm] = useState({ email: "", password: "" });
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const storeState = (state: RootState) => ({
+    loading: state.users.user.loading,
+  });
+  const { loading } = useSelector(storeState);
 
   const eyeHandle = () => {
     setVisible(!visible);
   };
 
-  const submitHandle = async (e: any) => {
-    e.preventDefault();
-    setLoading(true);
-    const res = await Api.userLogin(formData);
-    if (res.status === 200) {
-      Cookies.set("auth", res.data.token, {
-        expires: 360,
-        path: "/",
-        secure: false,
-      });
-      setLoginForm({ email: "", password: "" });
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setLoading(false);
-      router.push("/home");
-    } else {
-      setLoading(false);
-      setLoginForm({ email: "", password: "" });
-    }
-  };
-
-  const setInputHandle = (e: any) => {
-    setLoginForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: LoginSchema,
+    onSubmit: async (values) => {
+      await signIn(values);
+    },
+  });
 
   return (
     <>
@@ -60,26 +47,27 @@ function Login() {
               <div className="font-semibold my-12 text-6xl leading-[72px] text-white">
                 Log in
               </div>
-              <form
-                onSubmit={submitHandle}
-                className="w-7/10 flex flex-col justify-center items-center"
-              >
-                {InputEmail({ setInputHandle, formData })}
-                {InputPassword({
-                  setInputHandle,
-                  formData,
-                  visible,
-                  eyeHandle,
-                })}
-
-                <button
-                  className="button btn-form_ px-0 w-full max-w-xs h-14 outline-none self-center text-decoration-none cursor-pointer bg-gradient-to-b from-red-500 to-purple-700 rounded-full text-white font-semibold text-lg border border-blue-500 capitalize"
-                  type="submit"
+              <FormikProvider value={formik}>
+                <form
+                  onSubmit={formik.handleSubmit}
+                  className="w-7/10 flex flex-col justify-center items-center"
                 >
-                  {loading ? <span></span> : "Login"}
-                  <ClipLoader color={"#ffff"} loading={loading} size={10} />
-                </button>
-              </form>
+                  <InputEmail />
+                  <InputPassword
+                    visible={visible}
+                    eyeHandle={eyeHandle}
+                    name="password"
+                  />
+
+                  <button
+                    className="button btn-form_ px-0 w-full max-w-xs h-14 outline-none self-center text-decoration-none cursor-pointer bg-gradient-to-b from-red-500 to-purple-700 rounded-full text-white font-semibold text-lg border border-blue-500 capitalize"
+                    type="submit"
+                  >
+                    {loading ? <span></span> : "Login"}
+                    <ClipLoader color={"#ffff"} loading={loading} size={10} />
+                  </button>
+                </form>
+              </FormikProvider>
               <div className="already flex w-full my-6 max-w-xs justify-between items-center font-semibold text-sm leading-6 text-gray-400">
                 <span>Not a member?</span>
                 <Link href="/register">Sign Up</Link>
@@ -91,5 +79,13 @@ function Login() {
     </>
   );
 }
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+});
 
 export default Login;

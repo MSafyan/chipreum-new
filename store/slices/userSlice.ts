@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userReducerState } from "store/types/userType";
+import { userReducerState } from "@/store/types/userType";
 
 const initialState: userReducerState = {
   user: {
@@ -8,6 +8,7 @@ const initialState: userReducerState = {
     jwt: null,
   },
   redirectTo: null,
+  showStoryModel: false,
 };
 
 export const userSlice = createSlice({
@@ -20,9 +21,12 @@ export const userSlice = createSlice({
     setRedirectTo: (state, action) => {
       state.redirectTo = action.payload;
     },
+    setShowStoryModel: (state, action) => {
+      state.showStoryModel = action.payload;
+    },
   },
 });
 
-export const { setUser, setRedirectTo } = userSlice.actions;
+export const { setUser, setRedirectTo, setShowStoryModel } = userSlice.actions;
 
 export default userSlice.reducer;

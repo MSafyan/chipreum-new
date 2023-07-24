@@ -1,14 +1,16 @@
-// import FeatherIcon from "feather-icons-react";
+import FeatherIcon from "feather-icons-react";
 
 function CardTitle() {
   return (
-    <div className="card-title">
-      <h3>create post</h3>
-      <ul className="create-option">
+    <div className="mb-2.5 flex items-center">
+      <h3>Create Post</h3>
+      <ul className="flex items-center">
         <li>
-          <h5>
-            {/* <FeatherIcon icon="video" size={15} /> */}
-            go live go live
+          <h5 className="text-sm sm:text-base flex items-center capitalize text-gray-500 font-medium ml-3">
+            <span className="mx-1">
+              <FeatherIcon icon="video" size={15} />
+            </span>
+            Go Live
           </h5>
         </li>
       </ul>

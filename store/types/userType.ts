@@ -1,3 +1,6 @@
+import { Notification } from "./notificationType";
+import { Post } from "./postType";
+
 export interface userReducerState {
   user: {
     loading: boolean;
@@ -5,22 +8,35 @@ export interface userReducerState {
     jwt: string | null;
   };
   redirectTo: null;
+  showStoryModel: boolean;
 }
 
 interface User {
-  id: number;
-  username: string;
+  _id: string;
+  fullname: string;
+  gender: string;
+  avatar: string;
+  coverUrl: string;
+  followerss: string[];
+  followingss: string[];
+  posts: Post[];
   email: string;
-  allowNull?: boolean;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
+  password: string;
+  username: string;
+  profilePicture: string;
+  coverPicture: string;
+  followers: any[]; // replace any with the appropriate type
+  followings: any[]; // replace any with the appropriate type
+  isAdmin: boolean;
+  profileImage: string;
+  notifications: Notification[];
   createdAt: string;
   updatedAt: string;
+  __v: number;
 }
 
 export interface UserJwtData {
-  jwt: string;
+  token: string;
   user: User;
 }
 

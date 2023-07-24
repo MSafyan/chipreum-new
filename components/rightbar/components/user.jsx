@@ -1,30 +1,34 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Tooltip } from "react-tippy";
 
 function User({ id = "", fullname = "", avatar, filterUsersHandle }) {
-  const history = useHistory();
+  const router = useRouter();
   const username = fullname.split(" ")[0];
 
   return (
-    <li className="friend-box user3" key={id}>
+    <li className="relative cursor-pointer mt-4" key={id}>
       <Tooltip title={fullname} position="left" trigger="mouseenter">
-        <div className="media">
-          <Link href={`/profile/${id}`} className="user-img">
+        <div className="items-center lg:flex lg:flex-wrap">
+          <Link
+            href={`/profile/${id}`}
+            className="w-[45px] h-[45px] relative mr-4 rounded-[50px] lg:flex lg:flex-col"
+          >
             <img
               crossorigin="anonymous"
               src={avatar}
-              className="img-fluid lazyload bg-img"
+              className="w-full h-full object-cover rounded-[50px]"
               alt="user"
             />
           </Link>
-          <div className="media-body d-flex align-items-center justify-content-between">
-            <h5
-              className="user-name"
-              onClick={() => history.push(`/profile/${id}`)}
-            >
+          <div className="flex-1 flex items-center justify-between">
+            <h5 className="mb-1" onClick={() => router.push(`/profile/${id}`)}>
               {username}
             </h5>
-            <button className="btn-solid" onClick={() => filterUsersHandle(id)}>
+            <button
+              className="transition-all duration-[0.5s] ease-[ease] rounded-[5px] border-0 bg-gradient-to-l from-red-400 via-red-500 to-purple-500 text-white"
+              onClick={() => filterUsersHandle(id)}
+            >
               Follow
             </button>
           </div>

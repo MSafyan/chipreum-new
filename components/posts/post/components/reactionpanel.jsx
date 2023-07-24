@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import Api from "../../../../api/api";
 import { getProfileMe } from "../../../../data/atom";
+import { Box } from "@mui/material";
 
 function ReactionPanel({
   ownerId,
@@ -47,8 +48,8 @@ function ReactionPanel({
   }, []);
 
   return (
-    <div className="post-react">
-      <ul>
+    <div className="bg-[rgb(16_16_16_/_50%)] p-3.5 border-b-[#101010] border-b border-solid">
+      <ul className="flex items-center justify-around">
         <li className="react-btn">
           {!liked ? (
             <Like likesHandle={likesHandle} />
@@ -57,23 +58,19 @@ function ReactionPanel({
           )}
         </li>
         <li className="comment-click">
-          <Link
-            to="#"
+          <div
             onClick={() => setCommentsShow(!commentsShow)}
-            className="react-click"
+            className="flex cursor-pointer items-center text-[#b7b7b7] capitalize font-medium"
           >
-            <FeatherIcon icon="message-square" size={18} />
+            <FeatherIcon icon="message-square" size={18} className="mr-2" />
             Comment
-          </Link>
+          </div>
         </li>
         <li onClick={() => setShareModel(true)}>
-          <Link
-            to="#"
-            className="react-click" /*data-bs-target="#shareModal" data-bs-toggle="modal"*/
-          >
-            <FeatherIcon icon="share" size={16} />
+          <div className="flex cursor-pointer  items-center text-[#b7b7b7] capitalize font-medium">
+            <FeatherIcon icon="share" size={16} className="mr-2" />
             Share
-          </Link>
+          </div>
         </li>
       </ul>
     </div>
@@ -82,31 +79,34 @@ function ReactionPanel({
 
 function Liked({ likesHandle }) {
   return (
-    <Link
-      to="#"
-      className="react-click"
+    <Box
+      className="flex items-center cursor-pointer  text-[#b7b7b7] capitalize font-medium"
       style={{ color: "#ff6559" }}
       onClick={likesHandle}
     >
       <FeatherIcon
         icon="thumbs-up"
         size={18}
+        className="mr-2"
         style={{
           fill: "rgb(255 101 89)",
           stroke: "rgb(255 101 89 / 50%)",
         }}
       />
       Liked
-    </Link>
+    </Box>
   );
 }
 
 function Like({ likesHandle }) {
   return (
-    <Link href="#" className="react-click" onClick={likesHandle}>
-      <FeatherIcon icon="thumbs-up" size={18} />
+    <div
+      className="flex items-center cursor-pointer  text-[#b7b7b7] capitalize font-medium"
+      onClick={likesHandle}
+    >
+      <FeatherIcon icon="thumbs-up" size={18} className="mr-2" />
       Like
-    </Link>
+    </div>
   );
 }
 
