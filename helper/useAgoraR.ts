@@ -59,7 +59,7 @@ export default function useAgora() {
     } catch (error) {
       console.error("Error creating microphone track:", error);
       // Handle the error ely, e.g. show a user-friendly error message
-      return null; // return early if error occurs during microphone track creation
+      return null;
     }
 
     try {
@@ -198,16 +198,16 @@ export default function useAgora() {
     if (localAudioTrack) {
       localAudioTrack.stop();
       localAudioTrack.close();
-      dispatch(setLocalAudioTrack(undefined));
+      dispatch(setLocalAudioTrack(null));
     }
     if (localVideoTrack) {
       localVideoTrack.stop();
       localVideoTrack.close();
-      dispatch(setLocalVideoTrack(undefined));
+      dispatch(setLocalVideoTrack(null));
     }
     dispatch(setRemoteUsers([]));
-    dispatch(setPublishingClient(undefined));
-    dispatch(setVolumeIndicator(undefined));
+    dispatch(setPublishingClient(null));
+    dispatch(setVolumeIndicator([]));
     await client?.leave();
   };
 

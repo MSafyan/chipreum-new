@@ -30,14 +30,23 @@ export const agoraSlice = createSlice({
     setClients: (state, action: PayloadAction<IAgoraRTCClient[]>) => {
       state.clients = action.payload;
     },
-    setPublishingClient: (state, action: PayloadAction<IAgoraRTCClient>) => {
+    setPublishingClient: (
+      state,
+      action: PayloadAction<IAgoraRTCClient | null>
+    ) => {
       debugger;
       state.publishingClient = action.payload;
     },
-    setLocalVideoTrack: (state, action: PayloadAction<ILocalVideoTrack>) => {
+    setLocalVideoTrack: (
+      state,
+      action: PayloadAction<ILocalVideoTrack | null>
+    ) => {
       state.localVideoTrack = action.payload;
     },
-    setLocalAudioTrack: (state, action: PayloadAction<ILocalAudioTrack>) => {
+    setLocalAudioTrack: (
+      state,
+      action: PayloadAction<ILocalAudioTrack | null>
+    ) => {
       state.localAudioTrack = action.payload;
     },
     setRemoteUsers: (state, action: PayloadAction<IAgoraRTCRemoteUser[]>) => {
