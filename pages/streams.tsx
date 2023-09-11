@@ -10,7 +10,7 @@ import Image from "next/image";
 const getDuration = (createdAt: any) => {
   const now = new Date();
   const created = new Date(createdAt);
-  const diff = now - created; // Difference in milliseconds
+  const diff = now - created; // Difflliseconds
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
