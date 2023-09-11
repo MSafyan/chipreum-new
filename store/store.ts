@@ -23,6 +23,7 @@ import notificationSlice from "./slices/notificationSlice";
 import languageSlice from "./slices/languageSlice";
 import postSlice from "./slices/postSlice";
 import storySlice from "./slices/StorySlice";
+import agoraSlice from "./slices/agoraSlice";
 
 const persistConfig = {
   key: "chipream",
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   language: languageSlice,
   post: postSlice,
   story: storySlice,
+  agora: agoraSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,10 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import avatar_photo from "/public/images/avatar_photo.png";
 import logo_icon from "/public/images/logo_icon.png";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { dootLink } from "@/config";
+import useAgora from "@/helper/useAgoraR";
+
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+// import dynamic from "next/dynamic";
+// const useAgora = dynamic(() => import("@/helper/useAgoraO"), {
+//   ssr: false,
+// });
 
 type NavbarProps = {
   openSidBar: boolean;
@@ -19,10 +27,22 @@ const NavBar = ({
   setOpenSidBar,
   openSidBar,
 }: NavbarProps) => {
+  const router = useRouter();
+
+  const { onStartStreamClick, stopStreaming, publishingClient } = useAgora();
+
   const { user, jwt } = useSelector((state: RootState) => ({
     user: state.users.user?.user,
     jwt: state.users.user?.jwt,
   }));
+
+  const handleStartStopStream = async () => {
+    if (publishingClient) {
+      await stopStreaming();
+    } else {
+      await onStartStreamClick();
+    }
+  };
 
   return (
     <nav className="sticky top-0 left-0 z-50 px-2 lg:px-10 shadow-[0px_1px_2px_rgba(0,0,0,0.2)] py-3 md:py-[19px] bg-white dark:bg-[var(--color-gray-7)]">
@@ -56,12 +76,16 @@ const NavBar = ({
                 </span>
               </button>
             </Link>
-            {/* <button
+            <button
               type={"button"}
               className="flex items-center justify-center text-lg leading-[150%] text-[#F8FAFC] bg-[var(--color-primary)] px-3 py-2 rounded-lg"
+              onClick={async () => {
+                await handleStartStopStream();
+                router.push("/stream-screen");
+              }}
             >
-              Connect
-            </button> */}
+              {publishingClient ? "Stop Streaming" : " Start Streaming"}
+            </button>
           </div>
           <Link
             href="/profile?view=on-sale"

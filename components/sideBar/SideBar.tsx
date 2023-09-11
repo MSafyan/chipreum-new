@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import logo from "/public/images/logo.png";
 import logo_icon from "/public/images/logo_icon.png";
-import { getProfileAction } from "@/store/actions/userAction";
+import { getProfileAction, logoutUser } from "@/store/actions/userAction";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { dootLink } from "@/config";
@@ -199,13 +199,33 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     className={`flex items-center gap-2 p-3 ${
                       showText ? "" : "justify-center"
                     } ${route === "/login" ? "side-bar-active" : ""}`}
-                    onClick={() => setOpenSidBar(false)}
+                    onClick={async () => await logoutUser()}
                   >
                     <span className="material-symbols-outlined">logout</span>
                     <span
                       className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
                     >
                       {showText ? "Logout" : ""}
+                    </span>
+                  </Link>
+                </li>
+                <li
+                  className="pb-3"
+                  onMouseOver={onMouseOverHandler}
+                  onMouseLeave={onMouseLeaveHandler}
+                >
+                  <Link
+                    href={"/streams"}
+                    className={`flex items-center gap-2 p-3 ${
+                      showText ? "" : "justify-center"
+                    } ${route === "/login" ? "side-bar-active" : ""}`}
+                    onClick={() => setOpenSidBar(false)}
+                  >
+                    <span className="material-symbols-outlined">stream</span>
+                    <span
+                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                    >
+                      {showText ? "Watch Streams" : ""}
                     </span>
                   </Link>
                 </li>

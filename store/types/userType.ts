@@ -11,7 +11,7 @@ export interface userReducerState {
   showStoryModel: boolean;
 }
 
-interface User {
+export interface User {
   _id: string;
   fullname: string;
   gender: string;

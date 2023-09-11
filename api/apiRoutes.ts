@@ -4,6 +4,7 @@ const USER = BASE + "/user";
 const Notification = BASE + "/notification";
 const POST = BASE + "/post";
 const STORY = BASE + "/story";
+const AGORA = BASE + "/agora";
 
 const LAN_BASE = "https://libretranslate.de";
 
@@ -41,6 +42,11 @@ const storyRoutes = {
   getAllStory: STORY + "/story/all",
   getUserStory: STORY + "/story/users",
 };
+const agoraRoutes = {
+  getToken: AGORA + "/getToken",
+  getAllStreams: AGORA + "/all",
+  deleteStream: AGORA,
+};
 
 export {
   authRoutes,
@@ -50,4 +56,5 @@ export {
   postRoutes,
   profileRoutes,
   storyRoutes,
+  agoraRoutes,
 };

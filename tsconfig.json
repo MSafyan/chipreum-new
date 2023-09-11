@@ -23,7 +23,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/home/index.jsx",
-    "pages/index.tsx"
+    "pages/index.tsx",
+    "pages/AgoraUtil.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -14,8 +14,9 @@ function Login() {
   const [visible, setVisible] = useState(false);
   const storeState = (state: RootState) => ({
     loading: state.users.user.loading,
+    user: state.users.user.user,
   });
-  const { loading } = useSelector(storeState);
+  const { loading, user } = useSelector(storeState);
 
   const eyeHandle = () => {
     setVisible(!visible);
@@ -36,7 +37,9 @@ function Login() {
     <>
       <PreLoader />
       <div
-        className={`bg-transparent w-full h-full flex justify-center flex-col md:flex-row bg-no-repeat bg-contain bg-left m-auto sm:my-8 sm:mx-auto sm:mb-7 ${styles.box_Container}`}
+        className={`bg-transparent w-full h-full flex justify-center flex-col md:flex-row bg-no-repeat bg-contain bg-left m-auto  sm:mx-auto sm:mb-7
+        ${user ? "sm:my-8" : ""}
+        ${styles.box_Container}`}
       >
         <div className="mx-auto flex flex-col justify-start w-full h-auto max-w-[1330px]">
           <div

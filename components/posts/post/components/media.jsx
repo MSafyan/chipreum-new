@@ -23,6 +23,7 @@ function Media({ post }) {
         <video
           src={post.videoUrl}
           controls
+          width="100%"
           // preload="none"
         />
       ) : null}
