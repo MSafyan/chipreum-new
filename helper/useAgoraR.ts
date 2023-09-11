@@ -58,7 +58,7 @@ export default function useAgora() {
       dispatch(setLocalAudioTrack(microphoneTrack));
     } catch (error) {
       console.error("Error creating microphone track:", error);
-      // Handle the error appropriately, e.g. show a user-friendly error message
+      // Handle the error ely, e.g. show a user-friendly error message
       return null; // return early if error occurs during microphone track creation
     }
 
