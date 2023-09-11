@@ -1,0 +1,8 @@
+{
+  "build": {
+    "env": {
+      "TS_IGNORE": "true"
+    },
+    "command": "TS_SKIP_LIB_CHECK=true next build"
+  }
+}

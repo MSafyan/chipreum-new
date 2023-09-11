@@ -4,7 +4,6 @@ import PostSettings from "./postsettings";
 
 function TitleBox({
   userId,
-  setLoader,
   isAuth,
   postId,
   ownerImage,
@@ -36,7 +35,7 @@ function TitleBox({
           </div>
         </div>
       </div>
-      {isAuth && <PostSettings postId={postId} setLoader={setLoader} />}
+      {isAuth && <PostSettings postId={postId} />}
     </div>
   );
 }

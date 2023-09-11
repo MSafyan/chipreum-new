@@ -11,17 +11,7 @@ import ReactionPanel from "./components/reactionpanel";
 import ReactionStats from "./components/reactionstats";
 import TitleBox from "./components/titlebox";
 
-function Post({
-  post,
-  isShare,
-  setLoader,
-  avatar,
-  fullname,
-  postId,
-  options,
-  setUserPosts,
-  isAuth,
-}) {
+function Post({ isAuth, post, isShare, avatar, fullname, postId, options }) {
   const [commentsShow, setCommentsShow] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
@@ -58,8 +48,6 @@ function Post({
         ownerImage={avatar}
         ownerName={fullname}
         createdAt={post.createdAt}
-        setLoader={setLoader}
-        setUserPosts={setUserPosts}
       />
       <div className="post-details">
         <Media post={post} />

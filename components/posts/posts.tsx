@@ -26,6 +26,7 @@ function Posts() {
           posts?.map((post: any) => (
             <div key={post._id}>
               <Post
+                isAuth={false}
                 post={post}
                 isShare={post.share.isShare}
                 avatar={

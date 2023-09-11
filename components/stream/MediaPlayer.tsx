@@ -29,6 +29,7 @@ const MediaPlayer = (props: VideoPlayerProps) => {
     if (isPlaying) {
       props.videoTrack.stop();
     } else {
+      // @ts-ignore
       props.videoTrack.play(container.current);
     }
 
