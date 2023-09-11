@@ -3,7 +3,6 @@ import { getAllStreamsAction } from "@/store/actions/agoraAction";
 import { RootState } from "@/store/store";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-// import Videocall from "./AgoraUtil";
 import Image from "next/image";
 
 const getDuration = (createdAt: any) => {
@@ -24,11 +23,7 @@ const getDuration = (createdAt: any) => {
   }
 };
 
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-const Videocall = dynamic(() => import("./AgoraUtil"), {
-  ssr: false,
-});
 
 const Streams = () => {
   const { onJoinStreamSubscriber } = useAgora();

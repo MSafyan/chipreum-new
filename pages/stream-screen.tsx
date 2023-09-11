@@ -2,14 +2,13 @@ import useAgora from "@/helper/useAgoraR";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import MediaPlayer with SSR turned off
-const DynamicMediaPlayer = dynamic(
-  () => import("@/components/stream/MediaPlayer"),
-  {
-    ssr: false, // This ensures that the component is only rendered client-side
-    loading: () => <p>Loading...</p>,
-  }
-);
+// const DynamicMediaPlayer = dynamic(
+//   () => import("@/components/stream/MediaPlayer"),
+//   {
+//     ssr: false, // This ensures that the component is only rendered client-side
+//     loading: () => <p>Loading...</p>,
+//   }
+// );
 
 const StreamScreen = () => {
   const {
@@ -27,7 +26,7 @@ const StreamScreen = () => {
 
   return (
     <div>
-      <DynamicMediaPlayer
+      {/* <DynamicMediaPlayer
         videoTrack={localVideoTrack}
         audioTrack={localAudioTrack}
         uid={publishingClient?.uid}
@@ -43,7 +42,7 @@ const StreamScreen = () => {
             volumeIndicator={volumeIndicator}
           ></DynamicMediaPlayer>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

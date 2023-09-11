@@ -23,8 +23,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/home/index.jsx",
-    "pages/index.tsx",
-    "pages/AgoraUtil.js"
+    "pages/index.tsx"
   ],
   "exclude": ["node_modules"],
   "typeRoots": ["./declarations", "./node_modules/@types"],
