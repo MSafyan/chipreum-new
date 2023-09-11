@@ -1,4 +1,4 @@
-import styles from "./Login.module.css";
+import styles from "./login.module.css";
 import { useState } from "react";
 import ClipLoader from "react-spinners/PropagateLoader";
 import Link from "next/link";
