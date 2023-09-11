@@ -1,4 +1,3 @@
-import { volume } from "@/helper/useAgoraO";
 import {
   ILocalVideoTrack,
   IRemoteVideoTrack,
@@ -9,6 +8,7 @@ import {
 import React, { useRef, useEffect, useState } from "react";
 import { MdPlayArrow, MdPause, MdFullscreen } from "react-icons/md";
 import Mic from "@mui/icons-material/Mic";
+import { volume } from "@/helper/useAgoraR";
 
 export interface VideoPlayerProps {
   videoTrack: ILocalVideoTrack | IRemoteVideoTrack | undefined | null;

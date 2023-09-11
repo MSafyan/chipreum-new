@@ -1,4 +1,3 @@
-import MediaPlayer from "@/components/stream/MediaPlayer";
 import useAgora from "@/helper/useAgoraR";
 import { getAllStreamsAction } from "@/store/actions/agoraAction";
 import { RootState } from "@/store/store";
