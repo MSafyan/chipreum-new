@@ -60,6 +60,7 @@ const Streams = () => {
 
           return (
             <div
+              key={i}
               className="bg-gray-800 p-2 rounded shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer"
               onClick={async () => {
                 await onJoinStreamSubscriber(stream.owner._id);
