@@ -31,7 +31,7 @@ const Videocall = dynamic(() => import("./AgoraUtil"), {
   ssr: false,
 });
 
-const watchStreams = () => {
+const Streams = () => {
   const { onJoinStreamSubscriber } = useAgora();
   useEffect(() => {
     const fetchAllStreams = async () => {
@@ -111,4 +111,4 @@ const watchStreams = () => {
   );
 };
 
-export default watchStreams;
+export default Streams;

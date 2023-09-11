@@ -7,7 +7,7 @@ import {
   UID,
 } from "agora-rtc-sdk-ng";
 import React, { useRef, useEffect, useState } from "react";
-import { MdPlayArrow, MdPause, MdVolumeUp, MdFullscreen } from "react-icons/md";
+import { MdPlayArrow, MdPause, MdFullscreen } from "react-icons/md";
 import Mic from "@mui/icons-material/Mic";
 
 export interface VideoPlayerProps {

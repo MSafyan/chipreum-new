@@ -2,7 +2,7 @@ import MediaPlayer from "@/components/stream/MediaPlayer";
 import useAgora from "@/helper/useAgoraR";
 import React from "react";
 
-const watchStreams = () => {
+const WatchStreams = () => {
   const { remoteUsers, volumeIndicator, stopStreaming } = useAgora();
 
   return (
@@ -22,4 +22,4 @@ const watchStreams = () => {
   );
 };
 
-export default watchStreams;
+export default WatchStreams;

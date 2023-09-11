@@ -38,8 +38,9 @@ function RightBar() {
           <ul>
             {landers ? (
               landers.length > 0 ? (
-                landers.map((item) => (
+                landers.map((item, i) => (
                   <User
+                    key={i}
                     id={item?._id}
                     fullname={item?.fullname}
                     avatar={item?.avatar}

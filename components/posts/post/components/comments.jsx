@@ -54,13 +54,15 @@ function Comments({
       <div className={`comments ${commentsShow ? "block" : "hidden"} mb-5`}>
         {commentsArray &&
           commentsArray.map((item, i) => (
-            <Comment
-              index={i}
-              fullname={item.user?.fullname}
-              avatar={item.user?.avatar}
-              comment={item.comment}
-              createdAt={item.createdAt}
-            />
+            <div key={i}>
+              <Comment
+                index={i}
+                fullname={item.user?.fullname}
+                avatar={item.user?.avatar}
+                comment={item.comment}
+                createdAt={item.createdAt}
+              />
+            </div>
           ))}
       </div>
       <div className="reply">

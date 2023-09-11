@@ -15,8 +15,9 @@ function Story() {
       <div className="story-section ratio_115 mb-2">
         <Slider {...slider8} className="slide-8 no-arrow default-space">
           <Add storyBg={user?.avatar} />
-          {stories.map((user: any) => (
+          {stories.map((user: any, i: any) => (
             <StoryItem
+              key={i}
               userId={user._id}
               fullname={user.fullname}
               avatar={user.avatar}

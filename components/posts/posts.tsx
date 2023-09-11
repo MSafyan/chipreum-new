@@ -24,20 +24,24 @@ function Posts() {
       <div className="post-panel ">
         {posts &&
           posts?.map((post: any) => (
-            <Post
-              post={post}
-              isShare={post.share.isShare}
-              avatar={
-                !post.share.isShare ? post.owner.avatar : post.share.user.avatar
-              }
-              fullname={
-                !post.share.isShare
-                  ? post.owner.fullname
-                  : post.share.user.fullname
-              }
-              postId={post._id}
-              options={languages}
-            />
+            <div key={post._id}>
+              <Post
+                post={post}
+                isShare={post.share.isShare}
+                avatar={
+                  !post.share.isShare
+                    ? post.owner.avatar
+                    : post.share.user.avatar
+                }
+                fullname={
+                  !post.share.isShare
+                    ? post.owner.fullname
+                    : post.share.user.fullname
+                }
+                postId={post._id}
+                options={languages}
+              />
+            </div>
           ))}
       </div>
     </>
