@@ -26,5 +26,7 @@
     "pages/index.tsx",
     "pages/AgoraUtil.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typeRoots": ["./declarations", "./node_modules/@types"],
+  "types": ["feather-icons-react"]
 }
