@@ -5,9 +5,10 @@ import { useRecoilValue } from "recoil";
 import Api from "../../../../api/api";
 import { getProfileMe } from "../../../../data/atom";
 import EmojiPicker from "emoji-picker-react";
-import { IconButton, TextField, Box, OutlinedInput } from "@mui/material";
+import { IconButton, Box, OutlinedInput } from "@mui/material";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useTheme } from "next-themes";
 
 function Comments({
   ownerId,
@@ -20,6 +21,7 @@ function Comments({
   const [showEmoji, setShowEmoji] = useState(false);
   const [comment, setComment] = useState("");
   const [commentsArray, setComments] = useState([]);
+  const { theme } = useTheme();
 
   const submitComment = async () => {
     setShowEmoji(false);
@@ -79,6 +81,14 @@ function Comments({
               variant="outlined"
               sx={{
                 width: "100%",
+                backgroundColor: theme === "light" ? "#edf7fb" : undefined,
+                color: theme === "light" ? "#333" : undefined, // Text color for light theme
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme === "light" ? "#b3d8e1" : undefined, // Border color for light theme
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme === "light" ? "#86b7c3" : undefined, // Border color on hover for light theme
+                },
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -99,19 +109,10 @@ function Comments({
               onEmojiClick={(e, emoji) => {
                 setComment((prev) => prev + e.emoji);
               }}
-              theme="dark"
+              theme={theme}
               emojiStyle="google"
             />
           )}
-          {/* <InputEmoji
-						ref={inputRef}
-						value={comment}
-						onChange={(e) => {
-							setComment(e);
-						}}
-						onEnter={submitComment}
-						placeholder='Write a comment...'
-					/> */}
         </div>
       </div>
     </div>
@@ -119,3 +120,15 @@ function Comments({
 }
 
 export default Comments;
+
+{
+  /* <InputEmoji
+						ref={inputRef}
+						value={comment}
+						onChange={(e) => {
+							setComment(e);
+						}}
+						onEnter={submitComment}
+						placeholder='Write a comment...'
+					/> */
+}

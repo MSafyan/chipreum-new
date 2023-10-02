@@ -1,6 +1,12 @@
 import FeatherIcon from "feather-icons-react";
+import { useTheme } from "next-themes";
 
 export const InputDescription = ({ createPost, setInputHandle }) => {
+  const { theme } = useTheme();
+
+  // Set background color based on the theme
+  const bgColor = theme === "light" ? "bg-[#edf7fb]" : "bg-gray-900";
+
   return (
     <div className="search-input input-style icon-right ">
       <input
@@ -9,7 +15,7 @@ export const InputDescription = ({ createPost, setInputHandle }) => {
         type="text"
         name="description"
         autoComplete="off"
-        className="px-8 py-2 bg-gray-900 border-none px-2 py-2 text-sm text-gray-400 rounded-md block w-full py-1 px-2 text-sm font-medium leading-6 text-gray-700 bg-gray-700 border border-gray-300 rounded-sm transition-all duration-150 w-full"
+        className={`px-8 py-2 ${bgColor} border-none px-2 py-2 text-sm text-gray-400 rounded-md block w-full py-1 px-2 text-sm font-medium leading-6 text-gray-700 bg-gray-700 border border-gray-300 rounded-sm transition-all duration-150 w-full`}
         placeholder="write something here.."
       />
     </div>

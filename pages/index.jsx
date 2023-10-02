@@ -8,6 +8,7 @@ import CreateStory from "@/components/createstory/createstory";
 import { getProfileMe } from "@/data/atom";
 import { useRecoilState } from "recoil";
 import Api from "@/api/api";
+import { getUserStory } from "@/api/storyService";
 
 function Home() {
   const [loader, setLoader] = useState(true);
@@ -21,16 +22,16 @@ function Home() {
   const [profileMe, setProfileMe] = useRecoilState(getProfileMe);
   const [timelinePosts, setTimelinePosts] = useState([]);
 
-  const getProfile = useCallback(async (isSubscribe) => {
-    const res = await Api.getProfile();
-    if (isSubscribe) {
-      if (res.status === 200) {
-        // setLoader(false);
-        setProfileMe(res.data.data);
-        localStorage.setItem("user", JSON.stringify(res.data.data));
-      }
-    }
-  }, []);
+  // const getProfile = useCallback(async (isSubscribe) => {
+  //   const res = await Api.getProfile();
+  //   if (isSubscribe) {
+  //     if (res.status === 200) {
+  //       // setLoader(false);
+  //       setProfileMe(res.data.data);
+  //       localStorage.setItem("user", JSON.stringify(res.data.data));
+  //     }
+  //   }
+  // }, []);
 
   const getAllUsers = useCallback(async (isSubscribe) => {
     const res = await Api.getAllUsers();
@@ -42,10 +43,11 @@ function Home() {
   }, []);
 
   const getStories = useCallback(async (isSubscribe) => {
-    const res = await Api.getStories();
+    debugger;
+    const res = await getUserStory();
     if (isSubscribe) {
-      if (res.status === 200) {
-        setStories(res.data.data);
+      if (res) {
+        setStories(res);
         setStoryLoader(false);
       }
     }
@@ -67,17 +69,17 @@ function Home() {
     return () => (isSubscribe = false);
   }, [storyLoader]);
 
-  useEffect(() => {
-    let isSubscribe = true;
-    getAllUsers(isSubscribe);
-    return () => (isSubscribe = false);
-  }, []);
+  // useEffect(() => {
+  //   let isSubscribe = true;
+  //   getAllUsers(isSubscribe);
+  //   return () => (isSubscribe = false);
+  // }, []);
 
-  useEffect(() => {
-    let isSubscribe = true;
-    getProfile(isSubscribe);
-    return () => (isSubscribe = false);
-  }, []);
+  // useEffect(() => {
+  //   let isSubscribe = true;
+  //   getProfile(isSubscribe);
+  //   return () => (isSubscribe = false);
+  // }, []);
 
   useEffect(() => {
     const body = document.querySelector("body");

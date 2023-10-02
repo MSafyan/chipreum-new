@@ -66,7 +66,7 @@ const NavBar = ({
         </div>
         <div className="flex items-center gap-4 md:gap-8">
           <div className="flex items-center gap-3 md:gap-6">
-            <Link href={`${dootLink}/${jwt}`}>
+            <Link href={!user ? "/login" : `${dootLink}/${jwt}`}>
               <button
                 type={"button"}
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[var(--color-gray-5)] shadow-[0px_0px_12px_rgba(101,90,90,0.15)]"
@@ -80,6 +80,7 @@ const NavBar = ({
               type={"button"}
               className="flex items-center justify-center text-lg leading-[150%] text-[#F8FAFC] bg-[var(--color-primary)] px-3 py-2 rounded-lg"
               onClick={async () => {
+                if (!user) return router.push("/login");
                 await handleStartStopStream();
                 router.push("/stream-screen");
               }}

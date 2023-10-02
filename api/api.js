@@ -230,6 +230,7 @@ export default class Api {
   // Get Profile me API
   static getProfile = async () => {
     try {
+      debugger;
       const res = await axios.get(`/api/v1/user/profile/me`);
       return res;
     } catch (error) {

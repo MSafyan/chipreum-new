@@ -30,9 +30,10 @@ const Layout = ({ children }: LayoutProps) => {
   const clss = router.pathname === "/profile" ? "" : "mx-2 sm:mx-6";
 
   useEffect(() => {
-    if (!user && !["/login", "/register"].includes(router.pathname)) {
-      router.push("/login");
-    }
+    debugger;
+    // if (!user && !["/login", "/register"].includes(router.pathname)) {
+    //   router.push("/login");
+    // }
   }, [user, router]);
 
   if (!user && ["/login", "/register"].includes(router.pathname)) {
@@ -49,14 +50,12 @@ const Layout = ({ children }: LayoutProps) => {
 
       <div className="flex items-start">
         {/* Side Bar */}
-        {user && (
-          <SideBar
-            showText={showText}
-            setShowText={setShowText}
-            openSidBar={openSidBar}
-            setOpenSidBar={setOpenSidBar}
-          />
-        )}
+        <SideBar
+          showText={showText}
+          setShowText={setShowText}
+          openSidBar={openSidBar}
+          setOpenSidBar={setOpenSidBar}
+        />
 
         <div
           className={`w-full flex-1 pl-0 ${
@@ -68,14 +67,12 @@ const Layout = ({ children }: LayoutProps) => {
           } transition-all duration-500 ease-in-out`}
         >
           {/* Nav Bar */}
-          {user && (
-            <NavBar
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-              openSidBar={openSidBar}
-              setOpenSidBar={setOpenSidBar}
-            />
-          )}
+          <NavBar
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            openSidBar={openSidBar}
+            setOpenSidBar={setOpenSidBar}
+          />
 
           <section
             className={`flex flex-col xl:flex-row gap-5 ${

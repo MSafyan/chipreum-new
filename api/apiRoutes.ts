@@ -39,8 +39,8 @@ const postRoutes = {
 };
 
 const storyRoutes = {
-  getAllStory: STORY + "/story/all",
-  getUserStory: STORY + "/story/users",
+  getAllStory: STORY + "/all",
+  getUserStory: STORY + "/users",
 };
 const agoraRoutes = {
   getToken: AGORA + "/getToken",

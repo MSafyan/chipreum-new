@@ -5,11 +5,18 @@ import Image from "./components/image";
 import Video from "./components/video";
 import { createPostAction } from "@/store/actions/postAction";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useRouter } from "next/router";
 
 const CreatePost: React.FC = () => {
+  const router = useRouter();
   const acceptImages = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
   const acceptVideos = ["video/webm", "video/webp", "video/mp4", "video/mkv"];
   const [imageVideo, setImageVideo] = useState({ image: false, video: false });
+  const { user } = useSelector((state: RootState) => ({
+    user: state.users?.user?.user,
+  }));
 
   const formik = useFormik({
     initialValues: {
@@ -19,6 +26,9 @@ const CreatePost: React.FC = () => {
       video: "",
     },
     onSubmit: async (values) => {
+      if (!user) {
+        return router.push("/login");
+      }
       if (values.description || values.image || values.video) {
         const formData = new FormData();
         if (values.description.trim().length > 0) {
@@ -74,7 +84,10 @@ const CreatePost: React.FC = () => {
     >
       <div className="static-section">
         <CardTitle />
-        {InputDescription({ createPost: formik.values, setInputHandle })}
+        <InputDescription
+          createPost={formik.values}
+          setInputHandle={setInputHandle}
+        />
       </div>
       {imageVideo.image && Image({ createPost: formik.values })}
       {imageVideo.video && Video({ createPost: formik.values })}

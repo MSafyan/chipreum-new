@@ -27,3 +27,38 @@
   height: 617px;
   z-index: -1;
 }
+.video-container {
+  position: relative;
+  width: 100vw; /* full viewport width */
+  height: 50vh; /* half of the viewport height */
+  max-width: 600px; /* this might not be necessary with the width set to 100vw, but you can adjust as needed */
+  overflow: hidden;
+}
+
+.video_content {
+  display: block;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50vh;
+}
+
+.wavy_top,
+.wavy_bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10%; /* adjust as needed */
+  background: url("/wavy-border.svg") repeat-x;
+  z-index: 10;
+}
+
+.wavy_top {
+  top: 0;
+  transform: scaleY(-1); /* to flip the SVG for the top border */
+}
+
+.wavy_bottom {
+  bottom: 0;
+}

@@ -1,11 +1,11 @@
 import FeatherIcon from "feather-icons-react";
 import { useEffect } from "react";
 import { useState } from "react";
-import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import Api from "../../../../api/api";
 import { getProfileMe } from "../../../../data/atom";
 import { Box } from "@mui/material";
+import { useTheme } from "next-themes";
 
 function ReactionPanel({
   ownerId,
@@ -18,6 +18,7 @@ function ReactionPanel({
 }) {
   const profileMe = useRecoilValue(getProfileMe);
   const [liked, setLiked] = useState(false);
+  const { theme } = useTheme();
 
   const likesHandle = async () => {
     if (liked) {
@@ -48,7 +49,11 @@ function ReactionPanel({
   }, []);
 
   return (
-    <div className="bg-[rgb(16_16_16_/_50%)] p-3.5 border-b-[#101010] border-b border-solid">
+    <div
+      className={`${
+        theme === "dark" && "bg-[rgb(16_16_16_/_50%)]"
+      } p-3.5 border-b-[#101010] border-b border-solid`}
+    >
       <ul className="flex items-center justify-around">
         <li className="react-btn">
           {!liked ? (

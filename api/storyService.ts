@@ -6,7 +6,9 @@ export const getAllStory = async () => {
   return user?.data?.data;
 };
 
-export const getUserStory = async () => {
-  const user = await axios.get(storyRoutes.getUserStory);
+export const getUserStory = async (isAuthenticated: boolean) => {
+  const user = await axios.get(
+    storyRoutes.getUserStory + (isAuthenticated ? "" : "/public")
+  );
   return user?.data?.data;
 };

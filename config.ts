@@ -8,10 +8,10 @@ if (process.env.NEXT_PUBLIC_NDOE_ENV === "production") {
 }
 
 // export const nftLink = 'https://nft-marketplace-msafyan.vercel.app';
-export const nftLink = "https://marketplace.cipherem.com";
+export const nftLink = "https://nft.cipherem.com";
 // export const nftLink = 'http://localhost:3001';
 // export const dootLink = 'https://dootfe.vercel.app/auth-login';
-export const dootLink = "https://dootfe.cipherem.com/auth-login";
+export const dootLink = "https://chat.cipherem.com/auth-login";
 // export const dootLink = 'http://localhost:3002';
 export const homeLink = "https://cipherem.com";
 

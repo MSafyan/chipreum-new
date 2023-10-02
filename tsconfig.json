@@ -23,7 +23,8 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/home/index.jsx",
-    "pages/index.tsx"
+    "pages/index.tsx",
+    "components/rightbar/components/user.jsx"
   ],
   "exclude": ["node_modules"],
   "typeRoots": ["./declarations", "./node_modules/@types"],

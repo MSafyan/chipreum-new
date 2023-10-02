@@ -5,7 +5,8 @@ import { getLanders } from "@/api/landerService";
 export const fetchLanders = async () => {
   try {
     store.dispatch(setLoading(true));
-    const landers = await getLanders();
+    const isAuthenticated = store.getState().users.user.user;
+    const landers = await getLanders(isAuthenticated);
     store.dispatch(setLanders(landers));
   } catch (error) {
     console.error(error);

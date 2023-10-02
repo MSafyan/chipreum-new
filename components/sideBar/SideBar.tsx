@@ -60,11 +60,11 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
   useEffect(() => {
     setEnabled(true);
 
-    if (user.jwt) {
-      getProfileAction();
-    } else {
-      router.push("/login");
-    }
+    // if (user.jwt) {
+    //   getProfileAction();
+    // } else {
+    //   router.push("/login");
+    // }
   }, []);
 
   if (!enabled) return null;
@@ -131,7 +131,7 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href={`${dootLink}/${user.jwt}`}
+                    href={!user?.user ? "/login" : `${dootLink}/${user.jwt}`}
                     className={`flex items-center gap-2 p-3  ${
                       showText ? "" : "justify-center"
                     }`}
@@ -151,7 +151,7 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/notifications"
+                    href={!user?.user ? "/login" : "/notifications"}
                     className="flex items-center gap-2 p-3 text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]"
                     onClick={() => setOpenSidBar(false)}
                   >
@@ -173,7 +173,7 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href={"/profile"}
+                    href={!user?.user ? "/login" : "/profile"}
                     className={`flex items-center gap-2 p-3 ${
                       showText ? "" : "justify-center"
                     } ${route === "/profile" ? "side-bar-active" : ""}`}
@@ -194,28 +194,45 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseOver={onMouseOverHandler}
                   onMouseLeave={onMouseLeaveHandler}
                 >
-                  <Link
-                    href={"/login"}
-                    className={`flex items-center gap-2 p-3 ${
-                      showText ? "" : "justify-center"
-                    } ${route === "/login" ? "side-bar-active" : ""}`}
-                    onClick={async () => await logoutUser()}
-                  >
-                    <span className="material-symbols-outlined">logout</span>
-                    <span
-                      className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                  {user?.user ? (
+                    <Link
+                      href="/login"
+                      className={`flex items-center gap-2 p-3 ${
+                        showText ? "" : "justify-center"
+                      } ${route === "/login" ? "side-bar-active" : ""}`}
+                      onClick={async () => await logoutUser()}
                     >
-                      {showText ? "Logout" : ""}
-                    </span>
-                  </Link>
+                      <span className="material-symbols-outlined">logout</span>
+                      <span
+                        className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                      >
+                        {showText ? "Logout" : ""}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className={`flex items-center gap-2 p-3 ${
+                        showText ? "" : "justify-center"
+                      } ${route === "/login" ? "side-bar-active" : ""}`}
+                    >
+                      <span className="material-symbols-outlined">login</span>
+                      <span
+                        className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
+                      >
+                        {showText ? "Login" : ""}
+                      </span>
+                    </Link>
+                  )}
                 </li>
+
                 <li
                   className="pb-3"
                   onMouseOver={onMouseOverHandler}
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href={"/streams"}
+                    href={!user?.user ? "/login" : "/streams"}
                     className={`flex items-center gap-2 p-3 ${
                       showText ? "" : "justify-center"
                     } ${route === "/login" ? "side-bar-active" : ""}`}

@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import { Tooltip } from "react-tippy";
 
 function User({ id = "", fullname = "", avatar, filterUsersHandle }) {
   const router = useRouter();
   const username = fullname.split(" ")[0];
+
+  const { user } = useSelector((state) => ({
+    user: state.users.user,
+  }));
 
   return (
     <li className="relative cursor-pointer mt-4" key={id}>
@@ -27,7 +32,10 @@ function User({ id = "", fullname = "", avatar, filterUsersHandle }) {
             </h5>
             <button
               className="transition-all duration-[0.5s] ease-[ease] rounded-[5px] border-0 bg-gradient-to-l from-red-400 via-red-500 to-purple-500 text-white"
-              onClick={() => filterUsersHandle(id)}
+              onClick={() => {
+                if (!user.user) return router.push("/login");
+                filterUsersHandle(id);
+              }}
             >
               Follow
             </button>

@@ -18,7 +18,9 @@ export const getAllStoryAction = async () => {
 export const getUserStoryAction = async () => {
   store.dispatch(setLoading(true));
   try {
-    const stories = await getUserStory();
+    const isAuthenticated = store.getState().users.user.user;
+    debugger;
+    const stories = await getUserStory(isAuthenticated);
     store.dispatch(setStories(stories));
   } catch (err) {
     console.error(err);
