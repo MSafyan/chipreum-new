@@ -24,7 +24,8 @@
     "**/*.tsx",
     "pages/home/index.jsx",
     "pages/index.tsx",
-    "components/rightbar/components/user.jsx"
+    "components/rightbar/components/user.jsx",
+    "components/posts/postSection.jsx"
   ],
   "exclude": ["node_modules"],
   "typeRoots": ["./declarations", "./node_modules/@types"],

@@ -58,7 +58,7 @@ const ProfileCard = () => {
               following
             </p>
           </div>
-          <button className="py-2 px-3 bg-[var(--color-primary)] text-[#F8FAFC] rounded-lg">
+          <button className="text-center bg-custom-gradient text-white  py-2 px-3 bg-[var(--color-primary)] text-[#F8FAFC] rounded-lg">
             Follow
           </button>
         </div>

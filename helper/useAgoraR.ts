@@ -52,7 +52,6 @@ export default function useAgora() {
   ): Promise<[IMicrophoneAudioTrack?, ICameraVideoTrack?]> | null {
     let microphoneTrack: IMicrophoneAudioTrack | undefined;
     let screenVideoTrack: ICameraVideoTrack | undefined;
-    debugger;
     try {
       microphoneTrack = await AgoraRTC.createMicrophoneAudioTrack(audioConfig);
       dispatch(setLocalAudioTrack(microphoneTrack));
@@ -103,7 +102,6 @@ export default function useAgora() {
 
       [microphoneTrack, screenVideoTrack] = result;
     }
-    debugger;
     try {
       await newClient.join(appid, channel, token || null, uid);
       if (publish && microphoneTrack && screenVideoTrack) {
@@ -112,7 +110,6 @@ export default function useAgora() {
         console.log("Skipping publishing tracks...");
         await newClient.setClientRole("audience");
       }
-      debugger;
       await newClient.enableAudioVolumeIndicator();
       // dispatch(setPublishingClient(newClient));
     } catch (error) {
@@ -150,7 +147,6 @@ export default function useAgora() {
   };
   const onJoinStreamSubscriber = async (_channelId: string) => {
     const userId = store.getState().users.user.user?._id;
-    debugger;
 
     let channelId = _channelId;
     if (!userId) return;

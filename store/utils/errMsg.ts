@@ -4,7 +4,6 @@ export const errMsg = (error: any) => {
   // eslint-disable-next-line no-debugger
   console.log(error.response);
   try {
-    debugger;
     if (!error.response) {
       return toast.warn("server error");
     } else if (

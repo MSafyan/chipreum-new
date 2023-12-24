@@ -41,7 +41,6 @@ export const signIn = async (data: LoginProps) => {
 };
 
 export const logoutUser = async () => {
-  debugger;
   store.dispatch(setUser({ user: null, jwt: null }));
   localStorage.removeItem("token");
   removeBearer();

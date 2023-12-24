@@ -11,7 +11,6 @@ import { errMsg } from "../utils/errMsg";
 export const getNotifications = async () => {
   try {
     const notifications: Notification[] = await fetchNotifications();
-    debugger;
     store.dispatch(setNotifications(notifications));
   } catch (err) {
     console.error(err);

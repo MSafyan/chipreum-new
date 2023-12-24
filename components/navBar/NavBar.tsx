@@ -7,7 +7,6 @@ import { dootLink } from "@/config";
 import useAgora from "@/helper/useAgoraR";
 
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 // import dynamic from "next/dynamic";
 // const useAgora = dynamic(() => import("@/helper/useAgoraO"), {
@@ -78,7 +77,7 @@ const NavBar = ({
             </Link>
             <button
               type={"button"}
-              className="flex items-center justify-center text-lg leading-[150%] text-[#F8FAFC] bg-[var(--color-primary)] px-3 py-2 rounded-lg"
+              className="text-center bg-custom-gradient text-white  py-2 px-3 bg-[var(--color-primary)] text-[#F8FAFC] rounded-lg"
               onClick={async () => {
                 if (!user) return router.push("/login");
                 await handleStartStopStream();

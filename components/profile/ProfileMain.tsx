@@ -11,6 +11,7 @@ import { updateCoverAction } from "@/store/actions/userAction";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import NavigationBar from "../navBar/NavigationBar";
 
 const ProfileMain: FC = () => {
   const router = useRouter();
@@ -50,7 +51,7 @@ const ProfileMain: FC = () => {
         <div className="flex flex-row sm:flex-col lg:flex-row items-center gap-2 lg:gap-5 absolute right-5 xl:right-[160px] bottom-[45%] sm:bottom-5 lg:bottom-[60px]">
           <label
             htmlFor="edit-cover"
-            className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg cursor-pointer"
+            className="text-center bg-custom-gradient text-white  py-2 px-3 bg-[var(--color-primary)] text-[#F8FAFC] rounded-lg"
           >
             Edit cover photo
           </label>
@@ -65,7 +66,7 @@ const ProfileMain: FC = () => {
           <Link href="/edit-profile">
             <button
               type={"button"}
-              className="px-3 py-2 bg-[var(--color-primary)] text-[#f8fafc] rounded-lg"
+              className="text-center bg-custom-gradient text-white  py-2 px-3 bg-[var(--color-primary)] text-[#F8FAFC] rounded-lg"
             >
               Edit Profile
             </button>
@@ -142,6 +143,7 @@ const ProfileMain: FC = () => {
           {view === "followers" ? <FollowersTab /> : ""}
         </div> */}
       </div>
+      <NavigationBar />
     </div>
   );
 };

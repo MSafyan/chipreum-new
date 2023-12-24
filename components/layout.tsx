@@ -30,7 +30,6 @@ const Layout = ({ children }: LayoutProps) => {
   const clss = router.pathname === "/profile" ? "" : "mx-2 sm:mx-6";
 
   useEffect(() => {
-    debugger;
     // if (!user && !["/login", "/register"].includes(router.pathname)) {
     //   router.push("/login");
     // }

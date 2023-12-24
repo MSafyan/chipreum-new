@@ -6,12 +6,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import logo from "/public/images/logo.png";
+import logo from "/public/images/icon/logo.png";
 import logo_icon from "/public/images/logo_icon.png";
 import { getProfileAction, logoutUser } from "@/store/actions/userAction";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { dootLink } from "@/config";
+import { Typography } from "@mui/material";
 
 const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
   const [enabled, setEnabled] = useState(false);
@@ -92,15 +93,20 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
           <div className="clss">
             <div className="flex items-center gap-10">
               <Link href="/">
-                <Image
-                  src={showText ? logo : logo_icon}
-                  alt="logo"
-                  className="flex-shrink-0"
-                />
+                <div className="flex justify-center items-center">
+                  <Image
+                    src={showText ? logo : logo_icon}
+                    alt="logo"
+                    className="flex-shrink-0"
+                    width={50}
+                    height={50}
+                  />
+                  <h1 className="ml-2">Chipream</h1>
+                </div>
               </Link>
-              <button type={"button"} onClick={onClickHandler}>
+              {/* <button type={"button"} onClick={onClickHandler}>
                 <span className="material-symbols-outlined">menu_open</span>
-              </button>
+              </button> */}
             </div>
             <div className="mt-[60px]">
               <ul>

@@ -31,7 +31,7 @@ function User({ id = "", fullname = "", avatar, filterUsersHandle }) {
               {username}
             </h5>
             <button
-              className="transition-all duration-[0.5s] ease-[ease] rounded-[5px] border-0 bg-gradient-to-l from-red-400 via-red-500 to-purple-500 text-white"
+              className="transition-all duration-[0.5s] ease-[ease] rounded-[5px] border-0 bg-custom-gradient text-white"
               onClick={() => {
                 if (!user.user) return router.push("/login");
                 filterUsersHandle(id);

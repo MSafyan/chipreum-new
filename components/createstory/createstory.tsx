@@ -100,7 +100,7 @@ function CreateStory() {
                   <div id="post-btn1" className="post-btn d-block">
                     <button
                       type="submit"
-                      className="w-full px-5 py-2 text-center bg-gradient-to-r from-red-500 via-red-500 to-purple-700 text-white mt-5 rounded-md font-semibold uppercase border-none cursor-pointer"
+                      className="w-full px-5 py-2 text-center bg-custom-gradient text-white mt-5 rounded-md font-semibold uppercase border-none cursor-pointer"
                       disabled={disableStoryBtn}
                     >
                       post story

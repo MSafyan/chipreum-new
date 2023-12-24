@@ -34,7 +34,6 @@ export const agoraSlice = createSlice({
       state,
       action: PayloadAction<IAgoraRTCClient | null>
     ) => {
-      debugger;
       state.publishingClient = action.payload;
     },
     setLocalVideoTrack: (
